@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Easy Math Tutorials</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0d14;
+    --card: #14141f;
+    --border: #2a2a3d;
+    --text: #e8e8f0;
+    --muted: #7a7a9a;
+    --yellow: #f5c842;
+    --blue: #4f8ef7;
+    --green: #42e0a0;
+    --pink: #f76fa0;
+    --orange: #ff8c42;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(79,142,247,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(79,142,247,0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .hero {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 80px 20px 60px;
+    animation: fadeUp 0.5s ease both;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    background: rgba(79,142,247,0.12);
+    border: 1px solid rgba(79,142,247,0.3);
+    color: var(--blue);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 6px 16px;
+    border-radius: 100px;
+    margin-bottom: 24px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(36px, 6vw, 72px);
+    font-weight: 800;
+    line-height: 1.05;
+    margin-bottom: 16px;
+    background: linear-gradient(135deg, #fff 30%, var(--blue));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero p {
+    color: var(--muted);
+    font-size: 18px;
+    max-width: 500px;
+    margin: 0 auto 40px;
+    line-height: 1.6;
+  }
+
+  .nav-pills {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 80px;
+    position: relative;
+    z-index: 1;
+    padding: 0 20px;
+    animation: fadeUp 0.5s ease 0.1s both;
+  }
+
+  .nav-pill {
+    padding: 10px 22px;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--muted);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+
+  .nav-pill:hover { color: var(--text); border-color: #4a4a6a; }
+  .nav-pill.p { color: var(--yellow); border-color: rgba(245,200,66,0.3); }
+  .nav-pill.n { color: var(--blue); border-color: rgba(79,142,247,0.3); }
+  .nav-pill.e { color: var(--green); border-color: rgba(66,224,160,0.3); }
+  .nav-pill.pct { color: var(--pink); border-color: rgba(247,111,160,0.3); }
+
+  .sections {
+    position: relative;
+    z-index: 1;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 20px 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .section {
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    animation: fadeUp 0.6s ease both;
+  }
+  .section:nth-child(1){animation-delay:0.1s}
+  .section:nth-child(2){animation-delay:0.2s}
+  .section:nth-child(3){animation-delay:0.3s}
+  .section:nth-child(4){animation-delay:0.4s}
+  .section:hover { transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+
+  .section-header {
+    padding: 28px 32px 24px;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 16px;
+  }
+
+  .section-icon {
+    width: 48px; height: 48px; border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; flex-shrink: 0;
+  }
+
+  .section-title { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; }
+  .section-subtitle { color: var(--muted); font-size: 14px; margin-top: 2px; }
+  .section-body { padding: 32px; }
+
+  .pyth .section-icon { background: rgba(245,200,66,0.12); }
+  .pyth .section-title { color: var(--yellow); }
+  .neg .section-icon { background: rgba(79,142,247,0.12); }
+  .neg .section-title { color: var(--blue); }
+  .eq .section-icon { background: rgba(66,224,160,0.12); }
+  .eq .section-title { color: var(--green); }
+  .pct .section-icon { background: rgba(247,111,160,0.12); }
+  .pct .section-title { color: var(--pink); }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+
+  .exercise-box {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 18px 20px;
+    margin-bottom: 12px;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+  .exercise-box strong { color: white; }
+
+  .steps-grid { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+
+  .step {
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 14px; border-radius: 10px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--border);
+    font-size: 14px; font-weight: 500;
+  }
+
+  .step-num {
+    width: 26px; height: 26px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700; flex-shrink: 0;
+  }
+
+  .step-math { font-family: 'Syne', sans-serif; font-size: 15px; }
+
+  .answer-box {
+    border-radius: 12px; padding: 13px 18px;
+    display: flex; align-items: center; gap: 10px;
+    font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 800;
+    margin-bottom: 4px;
+  }
+
+  .toggle-btn {
+    background: none; border: 1px solid var(--border);
+    color: var(--muted); padding: 8px 18px; border-radius: 10px;
+    font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .toggle-btn:hover { color: var(--text); border-color: #4a4a6a; }
+  .hidden { display: none; }
+  .divider { height: 1px; background: var(--border); margin: 24px 0; }
+  .tip-box { border-radius: 12px; padding: 16px 20px; margin-top: 4px; }
+
+  .percent-bar-wrap { margin: 12px 0; }
+  .percent-bar-label { font-size: 13px; color: var(--muted); margin-bottom: 6px; }
+  .percent-bar { height: 32px; background: rgba(255,255,255,0.05); border-radius: 8px; overflow: hidden; border: 1px solid var(--border); }
+  .percent-fill { height: 100%; border-radius: 8px; display: flex; align-items: center; padding-left: 12px; font-weight: 700; font-size: 13px; }
+
+  .number-line-wrap { margin: 16px 0; overflow-x: auto; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .glow { position: fixed; border-radius: 50%; filter: blur(80px); pointer-events: none; z-index: 0; opacity: 0.15; }
+  .glow-1 { width: 400px; height: 400px; background: var(--blue); top: -100px; right: -100px; }
+  .glow-2 { width: 300px; height: 300px; background: var(--yellow); bottom: 20%; left: -100px; }
+
+  @media (max-width: 620px) {
+    .two-col { grid-template-columns: 1fr; }
+    .section-body { padding: 18px; }
+    .section-header { padding: 18px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="glow glow-1"></div>
+<div class="glow glow-2"></div>
+
+<div class="hero">
+  <div class="hero-badge">✏️ Easy Math Tutorials</div>
+  <h1>Practice Makes<br>Perfect</h1>
+  <p>Work through real exercises on four key topics. Try each one yourself before revealing the answer!</p>
+</div>
+
+<div class="nav-pills">
+  <a href="#pyth" class="nav-pill p">📐 Pythagoras</a>
+  <a href="#neg" class="nav-pill n">➖ Negative Numbers</a>
+  <a href="#eq" class="nav-pill e">⚖️ Two-Step Equations</a>
+  <a href="#pct" class="nav-pill pct">💰 Percentages</a>
+</div>
+
+<div class="sections">
+
+  <!-- ===== PYTHAGORAS ===== -->
+  <div class="section pyth" id="pyth">
+    <div class="section-header">
+      <div class="section-icon">📐</div>
+      <div>
+        <div class="section-title">Pythagoras Theorem</div>
+        <div class="section-subtitle">a² + b² = c² — find the missing side of a right triangle</div>
+      </div>
+    </div>
+    <div class="section-body">
+      <div class="two-col">
+
+        <div>
+          <div class="exercise-box">🪜 A ladder leans against a wall. The wall is <strong>9m tall</strong> and the base is <strong>12m away</strong>. How long is the ladder?</div>
+          <button class="toggle-btn" onclick="toggle('p1',this)">👁 Show Solution</button>
+          <div id="p1" class="hidden" style="margin-top:12px;">
+            <div class="steps-grid">
+              <div class="step"><div class="step-num" style="background:rgba(245,200,66,0.15);color:#f5c842;">1</div><span class="step-math">9² + 12² = c²</span></div>
+              <div class="step"><div class="step-num" style="background:rgba(245,200,66,0.15);color:#f5c842;">2</div><span class="step-math">81 + 144 = 225</span></div>
+              <div class="step"><div class="step-num" style="background:rgba(245,200,66,0.15);color:#f5c842;">3</div><span class="step-math">c = √225</span></div>
+            </div>
+            <div class="answer-box" style="background:rgba(245,200,66,0.1);border:1px solid rgba(245,200,66,0.3);color:#f5c842;">✅ c = 15m</div>
+          </div>
+        </div>
+
+        <div>
+          <div class="exercise-box">⛺ A tent pole is <strong>8m tall</strong>. A rope goes from the top to a peg <strong>6m away</strong>. How long is the rope?</div>
+          <button class="toggle-btn" onclick="toggle('p2',this)">👁 Show Solution</button>
+          <div id="p2" class="hidden" style="margin-top:12px;">
+            <div class="steps-grid">
+              <div class="step"><div class="step-num" style="background:rgba(245,200,66,0.15);color:#f5c842;">1</div><span class="step-math">6² + 8² = c²</span></div>
+              <div class="step"><div class="step-num" style="background:rgba(245,200,66,0.15);color:#f5c842;">2</div><span class="step-math">36 + 64 = 100</span></div>
+              <div class="step"><div class="step-num" style="background:rgba(245,200,66,0.15);color:#f5c842;">3</div><span class="step-math">c = √100</span></div>
+            </div>
+            <div class="answer-box" style="background:rgba(245,200,66,0.1);border:1px solid rgba(245,200,66,0.3);color:#f5c842;">✅ c = 10m</div>
+          </div>
+        </div>
+
+        <div>
+          <div class="exercise-box">🏈 A field is <strong>30m long</strong> and <strong>40m wide</strong>. What is the diagonal distance corner to corner?</div>
+          <button class="toggle-btn" onclick="toggle('p3',this)">👁 Show Solution</button>
+          <div id="p3" class="hidden" style="margin-top:12px;">
+            <div class="steps-grid">
+              <div class="step"><div class="step-num" style="background:rgba(245,200,66,0.15);color:#f5c842;">1</div><span class="step-math">30² + 40² = c²</span></div>
+              <div class="step"><div class="step-num" style="background:rgba(245,200,66,0.15);color:#f5c842;">2</div><span class="step-math">900 + 1600 = 2500</span></div>
+              <div class="step"><div class="step-num" style="background:rgba(245,200,66,0.15);color:#f5c842;">3</div><span class="step-math">c = √2500</span></div>
+            </div>
+            <div class="answer-box" style="background:rgba(245,200,66,0.1);border:1px solid rgba(245,200,66,0.3);color:#f5c842;">✅ c = 50m</div>
+          </div>
+        </div>
+
+        <div>
+          <div class="exercise-box">🖥️ A TV screen is <strong>24cm tall</strong> and <strong>32cm wide</strong>. What is the diagonal size of the screen?</div>
+          <button class="toggle-btn" onclick="toggle('p4',this)">👁 Show Solution</button>
+          <div id="p4" class="hidden" style="margin-top:12px;">
+            <div class="steps-grid">
+              <div class="step"><div class="step-num" style="background:rgba(245,200,66,0.15);color:#f5c842;">1</div><span class="step-math">24² + 32² = c²</span></div>
+              <div class="step"><div class="step-num" style="background:rgba(245,200,66,0.15);color:#f5c842;">2</div><span class="step-math">576 + 1024 = 1600</span></div>
+              <div class="step"><div class="step-num" style="background:rgba(245,200,66,0.15);color:#f5c842;">3</div><span class="step-math">c = √1600</span></div>
+            </div>
+            <div class="answer-box" style="background:rgba(245,200,66,0.1);border:1px solid rgba(245,200,66,0.3);color:#f5c842;">✅ c = 40cm</div>
+          </div>
+        </div>
+
+      </div>
+      <div class="tip-box" style="background:rgba(245,200,66,0.05);border:1px solid rgba(245,200,66,0.15);">
+        <div style="font-weight:700;color:#f5c842;margin-bottom:6px;">💡 Remember</div>
+        <div style="color:var(--muted);font-size:14px;line-height:1.6;"><strong style="color:white;">c is always the hypotenuse</strong> — the longest side, opposite the right angle. Square both known sides, add them, then square root!</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== NEGATIVE NUMBERS ===== -->
+  <div class="section neg" id="neg">
+    <div class="section-header">
+      <div class="section-icon">➖</div>
+      <div>
+        <div class="section-title">Negative Numbers</div>
+        <div class="section-subtitle">Adding and subtracting with negative numbers</div>
+      </div>
+    </div>
+    <div class="section-body">
+      <div class="two-col">
+
+        <div>
+          <div class="exercise-box">🌡️ The temperature is <strong>−3°C</strong>. It drops by <strong>5 more degrees</strong>. What is the new temperature?</div>
+          <button class="toggle-btn" onclick="toggle('n1',this)">👁 Show Answer</button>
+          <div id="n1" class="hidden" style="margin-top:12px;">
+            <div class="steps-grid">
+              <div class="step"><div class="step-num" style="background:rgba(79,142,247,0.15);color:#4f8ef7;">1</div><span class="step-math">−3 − 5 = −8</span></div>
+            </div>
+            <div class="answer-box" style="background:rgba(79,142,247,0.1);border:1px solid rgba(79,142,247,0.3);color:#4f8ef7;">✅ −8°C</div>
+          </div>
+        </div>
+
+        <div>
+          <div class="exercise-box">💳 You owe <strong>−€12</strong> in your account. You earn <strong>€20</strong>. What's your new balance?</div>
+          <button class="toggle-btn" onclick="toggle('n2',this)">👁 Show Answer</button>
+          <div id="n2" class="hidden" style="margin-top:12px;">
+            <div class="steps-grid">
+              <div class="step"><div class="step-num" style="background:rgba(79,142,247,0.15);color:#4f8ef7;">1</div><span class="step-math">−12 + 20 = +8</span></div>
+            </div>
+            <div class="answer-box" style="background:rgba(79,142,247,0.1);border:1px solid rgba(79,142,247,0.3);color:#4f8ef7;">✅ +€8</div>
+          </div>
+        </div>
+
+        <div>
+          <div class="exercise-box">🏔️ A diver is at <strong>−200m</strong> below sea level. He swims up <strong>350m</strong>. What is his new depth?</div>
+          <button class="toggle-btn" onclick="toggle('n3',this)">👁 Show Answer</button>
+          <div id="n3" class="hidden" style="margin-top:12px;">
+            <div class="steps-grid">
+              <div class="step"><div class="step-num" style="background:rgba(79,142,247,0.15);color:#4f8ef7;">1</div><span class="step-math">−200 + 350 = +150</span></div>
+            </div>
+            <div class="answer-box" style="background:rgba(79,142,247,0.1);border:1px solid rgba(79,142,247,0.3);color:#4f8ef7;">✅ +150m above sea level</div>
+          </div>
+        </div>
+
+        <div>
+          <div class="exercise-box">🎮 Your game score is <strong>−15 points</strong>. You lose <strong>8 more points</strong>. What is your score?</div>
+          <button class="toggle-btn" onclick="toggle('n4',this)">👁 Show Answer</button>
+          <div id="n4" class="hidden" style="margin-top:12px;">
+            <div class="steps-grid">
+              <div class="step"><div class="step-num" style="background:rgba(79,142,247,0.15);color:#4f8ef7;">1</div><span class="step-math">−15 − 8 = −23</span></div>
+            </div>
+            <div class="answer-box" style="background:rgba(79,142,247,0.1);border:1px solid rgba(79,142,247,0.3);color:#4f8ef7;">✅ −23 points</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="divider"></div>
+      <div style="font-size:13px;color:var(--muted);margin-bottom:10px;font-weight:600;">📏 Number Line — moving left = negative, moving right = positive</div>
+      <div class="number-line-wrap">
+        <div style="display:flex;align-items:center;min-width:500px;">
+          <div style="width:0;height:0;border-top:7px solid transparent;border-bottom:7px solid transparent;border-right:12px solid var(--muted);"></div>
+          <div style="flex:1;height:3px;background:linear-gradient(90deg,var(--pink),var(--blue));border-radius:2px;"></div>
+          <div style="width:0;height:0;border-top:7px solid transparent;border-bottom:7px solid transparent;border-left:12px solid var(--muted);"></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;margin-top:8px;min-width:500px;padding:0 12px;">
+          <span style="font-size:13px;color:var(--pink);font-weight:700;">−10</span>
+          <span style="font-size:13px;color:var(--muted);">−5</span>
+          <span style="font-size:13px;color:white;font-weight:700;">0</span>
+          <span style="font-size:13px;color:var(--muted);">5</span>
+          <span style="font-size:13px;color:var(--blue);font-weight:700;">+10</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;min-width:500px;padding:0 12px;margin-top:4px;">
+          <span style="font-size:12px;color:var(--pink);">⬅ negative</span>
+          <span style="font-size:12px;color:var(--blue);">positive ➡</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== TWO-STEP EQUATIONS ===== -->
+  <div class="section eq" id="eq">
+    <div class="section-header">
+      <div class="section-icon">⚖️</div>
+      <div>
+        <div class="section-title">Two-Step Equations</div>
+        <div class="section-subtitle">Solve for x by doing the same thing to both sides</div>
+      </div>
+    </div>
+    <div class="section-body">
+      <div class="two-col">
+
+        <div>
+          <div class="exercise-box">Solve for x:<br><strong style="font-size:20px;">2x + 3 = 11</strong></div>
+          <button class="toggle-btn" onclick="toggle('e1',this)">👁 Show Solution</button>
+          <div id="e1" class="hidden" style="margin-top:12px;">
+            <div class="steps-grid">
+              <div class="step"><div class="step-num" style="background:rgba(66,224,160,0.15);color:#42e0a0;">1</div><span>Subtract 3 → <span class="step-math">2x = 8</span></span></div>
+              <div class="step"><div class="step-num" style="background:rgba(66,224,160,0.15);color:#42e0a0;">2</div><span>Divide by 2 → x = 4</span></div>
+            </div>
+            <div class="answer-box" style="background:rgba(66,224,160,0.1);border:1px solid rgba(66,224,160,0.3);color:#42e0a0;">✅ x = 4</div>
+          </div>
+        </div>
+
+        <div>
+          <div class="exercise-box">Solve for x:<br><strong style="font-size:20px;">3x − 5 = 16</strong></div>
+          <button class="toggle-btn" onclick="toggle('e2',this)">👁 Show Solution</button>
+          <div id="e2" class="hidden" style="margin-top:12px;">
+            <div class="steps-grid">
+              <div class="step"><div class="step-num" style="background:rgba(66,224,160,0.15);color:#42e0a0;">1</div><span>Add 5 → <span class="step-math">3x = 21</span></span></div>
+              <div class="step"><div class="step-num" style="background:rgba(66,224,160,0.15);color:#42e0a0;">2</div><span>Divide by 3 → x = 7</span></div>
+            </div>
+            <div class="answer-box" style="background:rgba(66,224,160,0.1);border:1px solid rgba(66,224,160,0.3);color:#42e0a0;">✅ x = 7</div>
+          </div>
+        </div>
+
+        <div>
+          <div class="exercise-box">Solve for x:<br><strong style="font-size:20px;">4x + 6 = 22</strong></div>
+          <button class="toggle-btn" onclick="toggle('e3',this)">👁 Show Solution</button>
+          <div id="e3" class="hidden" style="margin-top:12px;">
+            <div class="steps-grid">
+              <div class="step"><div class="step-num" style="background:rgba(66,224,160,0.15);color:#42e0a0;">1</div><span>Subtract 6 → <span class="step-math">4x = 16</span></span></div>
+              <div class="step"><div class="step-num" style="background:rgba(66,224,160,0.15);color:#42e0a0;">2</div><span>Divide by 4 → x = 4</span></div>
+            </div>
+            <div class="answer-box" style="background:rgba(66,224,160,0.1);border:1px solid rgba(66,224,160,0.3);color:#42e0a0;">✅ x = 4</div>
+          </div>
+        </div>
+
+        <div>
+          <div class="exercise-box">Solve for x:<br><strong style="font-size:20px;">5x − 10 = 30</strong></div>
+          <button class="toggle-btn" onclick="toggle('e4',this)">👁 Show Solution</button>
+          <div id="e4" class="hidden" style="margin-top:12px;">
+            <div class="steps-grid">
+              <div class="step"><div class="step-num" style="background:rgba(66,224,160,0.15);color:#42e0a0;">1</div><span>Add 10 → <span class="step-math">5x = 40</span></span></div>
+              <div class="step"><div class="step-num" style="background:rgba(66,224,160,0.15);color:#42e0a0;">2</div><span>Divide by 5 → x = 8</span></div>
+            </div>
+            <div class="answer-box" style="background:rgba(66,224,160,0.1);border:1px solid rgba(66,224,160,0.3);color:#42e0a0;">✅ x = 8</div>
+          </div>
+        </div>
+
+      </div>
+      <div class="tip-box" style="background:rgba(66,224,160,0.05);border:1px solid rgba(66,224,160,0.15);">
+        <div style="font-weight:700;color:#42e0a0;margin-bottom:6px;">💡 The Golden Rule</div>
+        <div style="color:var(--muted);font-size:14px;line-height:1.6;">Whatever you do to one side of the equation, <strong style="color:white;">you must do to the other side too.</strong> Think of it like a balance scale — both sides must always stay equal.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== PERCENTAGES ===== -->
+  <div class="section pct" id="pct">
+    <div class="section-header">
+      <div class="section-icon">💰</div>
+      <div>
+        <div class="section-title">Percentages</div>
+        <div class="section-subtitle">Discounts, tax, tips and real-world money problems</div>
+      </div>
+    </div>
+    <div class="section-body">
+      <div class="two-col">
+
+        <div>
+          <div class="exercise-box">🛍️ Shoes cost <strong>€80</strong>. There is a <strong>25% discount</strong>. What is the final price?</div>
+          <button class="toggle-btn" onclick="toggle('pct1',this)">👁 Show Solution</button>
+          <div id="pct1" class="hidden" style="margin-top:12px;">
+            <div class="percent-bar-wrap">
+              <div class="percent-bar-label">You pay 75% of €80</div>
+              <div class="percent-bar"><div class="percent-fill" style="width:75%;background:linear-gradient(90deg,#f76fa0,#ff8c42);">€60 (75%)</div></div>
+            </div>
+            <div class="steps-grid">
+              <div class="step"><div class="step-num" style="background:rgba(247,111,160,0.15);color:#f76fa0;">1</div><span>80 × 0.25 = €20 off</span></div>
+              <div class="step"><div class="step-num" style="background:rgba(247,111,160,0.15);color:#f76fa0;">2</div><span>80 − 20 = €60</span></div>
+            </div>
+            <div class="answer-box" style="background:rgba(247,111,160,0.1);border:1px solid rgba(247,111,160,0.3);color:#f76fa0;">✅ €60</div>
+          </div>
+        </div>
+
+        <div>
+          <div class="exercise-box">🍕 A pizza costs <strong>€12</strong>. There is <strong>10% tax</strong>. What is the total?</div>
+          <button class="toggle-btn" onclick="toggle('pct2',this)">👁 Show Solution</button>
+          <div id="pct2" class="hidden" style="margin-top:12px;">
+            <div class="percent-bar-wrap">
+              <div class="percent-bar-label">You pay 110% of €12</div>
+              <div class="percent-bar"><div class="percent-fill" style="width:100%;background:linear-gradient(90deg,#f76fa0,#ff8c42);">€13.20 (110%)</div></div>
+            </div>
+            <div class="steps-grid">
+              <div class="step"><div class="step-num" style="background:rgba(247,111,160,0.15);color:#f76fa0;">1</div><span>12 × 0.10 = €1.20 tax</span></div>
+              <div class="step"><div class="step-num" style="background:rgba(247,111,160,0.15);color:#f76fa0;">2</div><span>12 + 1.20 = €13.20</span></div>
+            </div>
+            <div class="answer-box" style="background:rgba(247,111,160,0.1);border:1px solid rgba(247,111,160,0.3);color:#f76fa0;">✅ €13.20</div>
+          </div>
+        </div>
+
+        <div>
+          <div class="exercise-box">🧥 A jacket costs <strong>€120</strong>. It's on sale for <strong>30% off</strong>. What do you pay?</div>
+          <button class="toggle-btn" onclick="toggle('pct3',this)">👁 Show Solution</button>
+          <div id="pct3" class="hidden" style="margin-top:12px;">
+            <div class="percent-bar-wrap">
+              <div class="percent-bar-label">You pay 70% of €120</div>
+              <div class="percent-bar"><div class="percent-fill" style="width:70%;background:linear-gradient(90deg,#f76fa0,#ff8c42);">€84 (70%)</div></div>
+            </div>
+            <div class="steps-grid">
+              <div class="step"><div class="step-num" style="background:rgba(247,111,160,0.15);color:#f76fa0;">1</div><span>120 × 0.30 = €36 off</span></div>
+              <div class="step"><div class="step-num" style="background:rgba(247,111,160,0.15);color:#f76fa0;">2</div><span>120 − 36 = €84</span></div>
+            </div>
+            <div class="answer-box" style="background:rgba(247,111,160,0.1);border:1px solid rgba(247,111,160,0.3);color:#f76fa0;">✅ €84</div>
+          </div>
+        </div>
+
+        <div>
+          <div class="exercise-box">🍔 A meal costs <strong>€25</strong>. You leave a <strong>20% tip</strong>. How much tip do you leave?</div>
+          <button class="toggle-btn" onclick="toggle('pct4',this)">👁 Show Solution</button>
+          <div id="pct4" class="hidden" style="margin-top:12px;">
+            <div class="percent-bar-wrap">
+              <div class="percent-bar-label">Tip = 20% of €25</div>
+              <div class="percent-bar"><div class="percent-fill" style="width:20%;background:linear-gradient(90deg,#f76fa0,#ff8c42);">€5</div></div>
+            </div>
+            <div class="steps-grid">
+              <div class="step"><div class="step-num" style="background:rgba(247,111,160,0.15);color:#f76fa0;">1</div><span>25 × 0.20 = €5</span></div>
+            </div>
+            <div class="answer-box" style="background:rgba(247,111,160,0.1);border:1px solid rgba(247,111,160,0.3);color:#f76fa0;">✅ Tip = €5</div>
+          </div>
+        </div>
+
+      </div>
+      <div class="tip-box" style="background:rgba(247,111,160,0.05);border:1px solid rgba(247,111,160,0.15);">
+        <div style="font-weight:700;color:#f76fa0;margin-bottom:6px;">💡 Quick Tip</div>
+        <div style="color:var(--muted);font-size:14px;line-height:1.6;">Convert any percentage to a decimal first: <strong style="color:white;">25% → 0.25 · 10% → 0.10 · 30% → 0.30</strong>. Then multiply!</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Sticky bottom bar -->
+<div style="
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  z-index: 100;
+  background: #14141f;
+  border-top: 1px solid #2a2a3d;
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  color: #7a7a9a;
+  box-shadow: 0 -8px 30px rgba(0,0,0,0.4);
+">
+  <span>🤔 Stuck?</span>
+  <span style="color:#2a2a3d;">|</span>
+  <span style="color:#e8e8f0;">Watch the tutorials at</span>
+  <a href="https://www.youtube.com/@easymathtutorials01" target="_blank" style="
+    color: #f76fa0;
+    font-weight: 700;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: opacity 0.2s;
+  " onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">
+    ▶ Easy Math Tutorials
+  </a>
+</div>
+
+<!-- Push content up so bar doesn't cover it -->
+<div style="height: 60px;"></div>
+
+<script>
+  function toggle(id, btn) {
+    const el = document.getElementById(id);
+    if (el.classList.contains('hidden')) {
+      el.classList.remove('hidden');
+      btn.textContent = '🙈 Hide Solution';
+    } else {
+      el.classList.add('hidden');
+      btn.textContent = '👁 Show Solution';
+    }
+  }
+</script>
+</body>
+</html>
